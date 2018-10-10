@@ -6,10 +6,16 @@ public class AIController: MonoBehaviour {
         public Transform[] points;
         private int destPoint = 0;
         private NavMeshAgent agent;
+        public float  offsetX;
+        public float offsetZ;
+        public Transform target;
+
+        Vector3 heading;
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
 		// approaches a destination point).
@@ -23,6 +29,18 @@ public class AIController: MonoBehaviour {
             // close to the current one.
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             GotoNextPoint();
+
+            //target player instead
+            if(!target){
+                Debug.Log("Player not found");
+            }
+
+            heading = gameObject.transform.position - target.position;
+            if(Mathf.Abs(heading.x) <= offsetX && Mathf.Abs(heading.z) <= offsetZ){
+                GetComponent<UnityEngine.AI.NavMeshAgent>().destination = target.transform.position;
+            }
+
+
 	}
 
 	void GotoNextPoint(){
