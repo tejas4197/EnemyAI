@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Point1
+  - Point2
+  - Point3
+  - Point4
   layers:
   - Default
   - TransparentFX
